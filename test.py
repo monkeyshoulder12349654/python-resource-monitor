@@ -22,21 +22,28 @@ from tqdm import tqdm
 from time import sleep
 import sys
 import psutil
+print("MBPS UPLOAD: ")
+print(psutil.net_io_counters().bytes_sent/1000000)
+print("MPBS DOWNLOAD: ")
+print(psutil.net_io_counters().bytes_recv/1000000)
 
 
 
-
-
-with tqdm(total=100, desc='cpu     %', position=2) as cpubar, tqdm(total=100, desc='ram used%', position=0) as rambar, tqdm(total=100, desc='ram avlb%', position=1) as rambar2:
+with tqdm(total=100, desc='cpu     %', position=2) as cpubar, tqdm(total=10, desc='ram used%', position=0) as rambar, tqdm(total=10, desc='ram avlb%', position=1) as rambar2,tqdm(total=100, desc='MBS UP  %', position=3) as net1bar,tqdm(total=1000, desc='MBS DOWN%', position=4) as net2bar:
     while True:
         
-        rambar2.n=100*round((psutil.virtual_memory().available/psutil.virtual_memory().total),2)
-        rambar.n=psutil.virtual_memory().percent
+        rambar2.n=10*round((psutil.virtual_memory().available/psutil.virtual_memory().total),2)
+        rambar.n=round((psutil.virtual_memory().percent/10),2)
         cpubar.n=psutil.cpu_percent()
+        net1bar.n=psutil.net_io_counters().bytes_sent/1000000
+        net2bar.n=psutil.net_io_counters().bytes_recv/1000000
+        
+        
         rambar.refresh()
         rambar2.refresh()
         cpubar.refresh()
-        
+        net1bar.refresh()
+        net2bar.refresh()
         #print('memory used:', , 'GB')
         #print('memory available:', psutil.virtual_memory()[1]/1000000000, 'GB')
 
