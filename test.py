@@ -28,8 +28,26 @@ import psutil
 #print(psutil.net_io_counters().bytes_recv/1000000)
 
 #print(psutil.disk_usage('/').percent)
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
-with tqdm(total=100, desc='cpu     %', position=2) as cpubar, tqdm(total=10, desc='ram used%', position=0) as rambar, tqdm(total=10, desc='ram avlb%', position=1) as rambar2,tqdm(total=100, desc='MBS UP  %', position=3) as net1bar,tqdm(total=1000, desc='MBS DOWN%', position=4) as net2bar,tqdm(total=100, desc='Disk Use%', position=5) as diskbar1:
+print(f"{bcolors.WARNING}Warning: No active frommets remain. Continue?{bcolors.ENDC}")
+
+with tqdm(total=100, desc='cpu     %', position=2, ascii='░▒█') as cpubar, \
+          tqdm(total=10, desc='ram used%', position=0,ascii=' #') as rambar, \
+          tqdm(total=10, desc='ram avlb%', position=1,ascii='░▒█') as rambar2, \
+          tqdm(total=100, desc=f'{bcolors.OKGREEN}MBS UP  %{bcolors.ENDC}', position=3,ascii='░▒█') as net1bar, \
+          tqdm(total=1000, desc='MBS DOWN%', position=4,ascii='░▒█') as net2bar, \
+          tqdm(total=100, desc='Disk Use%', position=5,ascii='░▒█') as diskbar1:
+
     while True:
         
         rambar2.n=round(10*(psutil.virtual_memory().available/psutil.virtual_memory().total),2)
