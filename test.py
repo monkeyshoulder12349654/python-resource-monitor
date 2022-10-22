@@ -52,11 +52,11 @@ cpu = f"{colors.fg.purple}cpu     %{colors.reset}"
 print(f"{colors.bg.orange} {colors.fg.black} Warning: No active frommets remain. Continue?{colors.reset}")
 
 with tqdm(total=100, desc=cpu, position=2, ascii=' |') as cpubar, \
-          tqdm(colour="blue", total=10, desc='ram used%', position=0,ascii=' |') as rambar, \
-          tqdm(total=10, desc='ram avlb%', position=1,ascii=' |') as rambar2, \
-          tqdm(total=1000, desc=f'{colors.fg.green}MBS UP  %{colors.reset}', position=3,ascii=' |') as net1bar, \
-          tqdm(total=10000, desc='MBS DOWN%', position=4,ascii=' |') as net2bar, \
-          tqdm(total=100, desc='Disk Use%', position=5,ascii=' |') as diskbar1:
+          tqdm(colour="blue", total=10, desc='ram used%', position=0,ascii=' |',ncols=100) as rambar, \
+          tqdm(total=10, desc='ram avlb%', position=2,ascii=' |',ncols=100) as rambar2, \
+          tqdm(total=1000, desc=f'{colors.fg.green}MBS UP  %{colors.reset}', position=4,ascii=' |',ncols=100) as net1bar, \
+          tqdm(total=10000, desc='MBS DOWN%', position=6,ascii=' |',ncols=100) as net2bar, \
+          tqdm(total=100, desc='Disk Use%', position=8,ascii=' |',ncols=100, unit="",postfix=0)  as diskbar1:
 
     while True:
         
